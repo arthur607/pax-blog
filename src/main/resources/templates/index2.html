@@ -23,7 +23,7 @@
         <div class="doc-loader"></div>
         <div class="content-1170 header-holder center-relative">
             <div class="header-logo left">
-                <a href="index.html">
+                <a href="index2.html">
                     <img src="images/katt_default_logo.png" alt="">
                 </a>
             </div>
@@ -80,14 +80,14 @@
                     </div>
                     <div class="post-title-holder one_title absolute">
                         <h2 class="entry-title excerpt">
-                            <a th:href="@{/posts/{id}(id=${posts[0].id})}">
+                            <a th:href="@{/posts/{id}(id=${posts[8].id})}">
                                 We are design &amp; digital studio based in New York.<br>
                                 This is our showcase of crafted awesomeness.</a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a th:text="${{posts[0].category.name}}" th:href="@{/posts/{id}(id=${posts[0].id})}">Design</a>
+                                    <a th:text="${{posts[8].category.name}}" th:href="@{/posts/{id}(id=${posts[8].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -135,7 +135,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="zigzag absolute" style="bottom: 40px; right: 331px;">
-                        <img src="images/zigzag.png" alt="">
+                        <img th:src="@{images/zigzag.png}" alt="">
                     </div>
                 </article>
 

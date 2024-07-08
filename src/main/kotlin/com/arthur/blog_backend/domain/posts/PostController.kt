@@ -4,6 +4,7 @@ import com.arthur.blog_backend.domain.posts.dto.PostDto
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import java.util.LinkedList
 
 @Controller
 @RequestMapping("/posts")
@@ -11,7 +12,7 @@ class PostController(private val postService: PostService) {
 
     @GetMapping
     fun getAllPosts(model: Model): String {
-        val posts = postService.findAll()
+        val posts = LinkedList(postService.findAll())
         model.addAttribute("posts", posts)
         return "index2"
     }
@@ -22,7 +23,7 @@ class PostController(private val postService: PostService) {
         return when {
             post.isPresent -> run {
                 model.addAttribute("post", post.get())
-                "post"
+                "single"
             }
             else -> "redirect:/posts"
         }
