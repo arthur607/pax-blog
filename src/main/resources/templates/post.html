@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog - Post</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1 th:text="${post.title}">Post Title</h1>
+<p th:text="${post.category.name}">Post Category</p>
+
+<h1 th:text="${post.content}">Post Title</h1>
+
+<h3>Comments</h3>
+<div th:each="comment : ${post.comments}">
+    <p th:text="${comment.content}">Comment Content</p>
+</div>
+
+<h3>Likes</h3>
+<p th:text="${#numbers.formatInteger(post.likes.size(), 0)}">0 Likes</p>
+<a th:href="@{/posts}">Back to Posts</a>
+</body>
+</html>
