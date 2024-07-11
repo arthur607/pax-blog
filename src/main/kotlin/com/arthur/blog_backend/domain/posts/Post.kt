@@ -9,11 +9,14 @@ data class Post(
     @Id val id: String? = null,
     val title: String,
     val content: String,
+    val mainView: String?,
     val comments: List<Comment> = listOf(),
     val likes: List<Like> = listOf(),
     val tags: List<Tag> = listOf(),
     val category: Category?,
-    val createdAt: LocalDateTime = LocalDateTime.now()
+    val imgUrl: String?,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val author: String?
 )
 
 data class Comment(val content: String)

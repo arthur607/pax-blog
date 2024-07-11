@@ -40,14 +40,8 @@
                 <nav id="header-main-menu" class="big-menu">
                     <ul class="main-menu sm sm-clean">
                         <li><a href="index.html" class="current">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="about2.html">About 2</a></li>
-                        <li><a href="about3.html">About 3</a></li>
-                        <li><a href="contact.html">Contact</a>
-                            <ul class="sub-menu">
-                                <li><a href="contact2.html">Contact + Map</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
                 <div class="clear"></div>
@@ -80,14 +74,14 @@
                     </div>
                     <div class="post-title-holder one_title absolute">
                         <h2 class="entry-title excerpt">
-                            <a th:href="@{/posts/{id}(id=${posts[8].id})}">
+                            <a th:href="@{/posts/{id}(id=${posts.first.id})}" th:text="${{posts.first.mainView}}">
                                 We are design &amp; digital studio based in New York.<br>
                                 This is our showcase of crafted awesomeness.</a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a th:text="${{posts[8].category.name}}" th:href="@{/posts/{id}(id=${posts[8].id})}">Design</a>
+                                    <a th:text="${{posts.first.category.name}}" th:href="@{/posts/{id}(id=${posts.first.id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -275,6 +269,8 @@
             <img src="images/back_to_top.png" alt="Go Top">
         </div>
 
+
+        <script type="text/javascript" th:src="@{/js/html5.js}"></script>
 
         <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
         <script type="text/javascript" th:src="@{/js/jquery.smartmenus.min.js}"></script>

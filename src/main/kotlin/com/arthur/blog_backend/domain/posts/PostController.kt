@@ -1,6 +1,7 @@
 package com.arthur.blog_backend.domain.posts
 
 import com.arthur.blog_backend.domain.posts.dto.PostDto
+import com.arthur.blog_backend.domain.posts.dto.buildNullPostDto
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -13,6 +14,7 @@ class PostController(private val postService: PostService) {
     @GetMapping
     fun getAllPosts(model: Model): String {
         val posts = LinkedList(postService.findAll())
+        posts.first()
         model.addAttribute("posts", posts)
         return "index2"
     }
@@ -31,13 +33,13 @@ class PostController(private val postService: PostService) {
 
     @GetMapping("/create")
     fun createPostForm(model: Model): String {
-        model.addAttribute("postDto", Post(title = "", content = "", category = null))
+        model.addAttribute("postDto", buildNullPostDto())
         return "create_post"
     }
 
     @PostMapping
     fun createPost(@ModelAttribute postDto: PostDto): String {
-        val post = Post(title = postDto.title, content = postDto.content, category = Category(postDto.category))
+        val post = Post(title = postDto.title!!, content = postDto.content!!, imgUrl = postDto.imgUrl, category = Category(postDto.category!!), author = "Arthur", mainView = postDto.mainView)
         postService.save(post)
         return "redirect:/posts"
     }

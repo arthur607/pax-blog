@@ -65,7 +65,7 @@
 
         <div id="content" class="site-content center-relative">
             <div class="header-image">
-                <img th:src="@{../images/katt_post_image01.jpg}" alt=""></div>
+                <img th:src="${post.imgUrl}" alt=""></div>
             <article class="content-1170 center-relative">
                 <div class="content-wrapper">
                     <h1 class="entry-title" th:text="${post.title}">
@@ -164,6 +164,8 @@
 
 
         <!--Load JavaScript-->
+
+        <script type="text/javascript" th:src="@{/js/html5.js}"></script>
         <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
         <script type="text/javascript" th:src="@{/js/jquery.smartmenus.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/queryloader2.min.js}"></script>
