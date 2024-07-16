@@ -90,17 +90,10 @@ jobs:
       # Deploy image on Cloud Run
       - name: Deploy to Cloud Run
         id: deploy
-        env:
-          DB_URL: ${{ secrets.DB_URL }}
-        run: |-
-          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://southamerica-east1-docker.pkg.dev
-          gcloud run deploy paxblog \
-          --image $REPOSITORY/$IMAGE:$GITHUB_SHA \
-          --platform managed \
-          --region $GAR_LOCATION \
-          --allow-unauthenticated \
-          --set-env-vars "JAVA_OPTS=-Xms512m -Xmx1024m -XX:+UseG1GC" \
-          --set-env-vars "DB_URL=${{ secrets.DB_URL }}"
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: paxblog
+          region: $GAR_LOCATION
 
       # Set up kustomize
       - name: Set up Kustomize
