@@ -93,7 +93,7 @@ jobs:
         env:
           DB_URL: ${{ secrets.DB_URL }}
         run: |-
-          gcloud auth activate-service-account --key-file=${{ secrets.GCP_JSON_KEY }}.json
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://southamerica-east1-docker.pkg.dev
           gcloud run deploy paxblog \
           --image $REPOSITORY/$IMAGE:$GITHUB_SHA \
           --platform managed \
