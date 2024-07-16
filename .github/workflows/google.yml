@@ -73,7 +73,7 @@ jobs:
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://southamerica-east1-docker.pkg.dev
           JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
           docker build \
-            --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+            --tag "$REPOSITORY/$IMAGE:$GITHUB_SHA" \
             --build-arg JAR_FILE=$JAR_FILE \
             --build-arg MONGO_URI=${{ secrets.DB_URL }} \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
