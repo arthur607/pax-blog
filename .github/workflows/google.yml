@@ -94,7 +94,7 @@ jobs:
         with:
           service: 'paxblog'
           region: southamerica-east1
-          image: '$REPOSITORY/$IMAGE:$GITHUB_SHA'
+          image: $REPOSITORY/$IMAGE:$GITHUB_SHA
 
       # Set up kustomize
       - name: Set up Kustomize
