@@ -47,15 +47,9 @@
 
                 <nav id="header-main-menu" class="big-menu">
                     <ul class="main-menu sm sm-clean">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html" class="current">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="about2.html">About 2</a></li>
-                        <li><a href="about3.html">About 3</a></li>
-                        <li><a href="contact.html">Contact</a>
-                            <ul class="sub-menu">
-                                <li><a href="contact2.html">Contact + Map</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
                 <div class="clear"></div>
@@ -77,10 +71,10 @@
                                 <li><a th:text="${post.category.name}" href="#">Design</a></li>
                             </ul>
                         </div>
-                        <div class="post-date">August 21st, 2015</div>
-                        <div class="post-author"><a href="#">John</a></div>
-                        <div class="post-read-time">15 min read</div>
-                        <div class="post-num-comments"><a href="#">5 Comments</a></div>
+                        <div th:text="${post.getCreatedAt()}" class="post-date">August 21st, 2015</div>
+                        <div th:text="${post.getAuthor()}" class="post-author"><a href="#">John</a></div>
+                        <div th:text="${post.getMinsOfRead() + ' min read'} " class="post-read-time"></div>
+                        <div th:text="${post.getComments().size()} + ' Comments'" class="post-num-comments"><a href="#">5 Comments</a></div>
                     </div>
 
                     <div class="entry-content" th:utext="${post.content}">
@@ -135,21 +129,20 @@
             <div class="content-1170 center-relative">
                 <ul>
                     <li class="left-footer-content">
-                        © 2018 All rights reserved. | Katt HTML Template <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>.
+                        © 2024 All rights reserved. | PAX <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>.
                     </li>
                     <li class="center-footer-content">
                         <a href="index.html">
-                            <img src="images/katt_default_footer_logo.png" alt="Katt">
+                            <p>Pax</p>
                         </a>
                     </li>
                     <li class="right-footer-contnet">
                         <a href="#">Twitter</a>
                         <a href="#">Linkedin</a>
-                        <a href="#">Dribbble</a>
                         <a href="#">Instagram</a>
                     </li>
                     <li class="left-footer-content mobile">
-                        © 2018 All rights reserved. | Katt HTML Template <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>.
+                        © 2024 All rights reserved. | PAX <i class="fa fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>.
                     </li>
                 </ul>
             </div>

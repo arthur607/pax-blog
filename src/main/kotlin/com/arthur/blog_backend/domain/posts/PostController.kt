@@ -14,7 +14,6 @@ class PostController(private val postService: PostService) {
     @GetMapping
     fun getAllPosts(model: Model): String {
         val posts = LinkedList(postService.findAll())
-        posts.first()
         model.addAttribute("posts", posts)
         return "index2"
     }
@@ -39,8 +38,15 @@ class PostController(private val postService: PostService) {
 
     @PostMapping
     fun createPost(@ModelAttribute postDto: PostDto): String {
-        val post = Post(title = postDto.title!!, content = postDto.content!!, imgUrl = postDto.imgUrl, category = Category(postDto.category!!), author = "Arthur", mainView = postDto.mainView)
+        val post = Post(title = postDto.title!!, content = postDto.content!!, imgUrl = postDto.imgUrl,
+            category = Category(postDto.category!!), author = "Arthur", mainView = postDto.mainView, minsOfRead = calculateReadingTime(postDto.content))
         postService.save(post)
         return "redirect:/posts"
+    }
+
+    private fun calculateReadingTime(content: String): Int {
+        val contentWithoutTags = content.replace("<[^>]*>", "")
+        val count = contentWithoutTags.count { equals(' ') }
+        return (count*2) / 238 + (1 * 0.083).toInt()
     }
 }

@@ -81,7 +81,7 @@
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a th:text="${{posts.first.category.name}}" th:href="@{/posts/{id}(id=${posts.first.id})}">Design</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts.last.id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -89,17 +89,17 @@
                     <div class="clear"></div>
                 </article>
 
-                <article id="post-2" class="relative blog-item-holder">
+                <article th:if="${posts.size() >= 2}" id="post-2" class="relative blog-item-holder">
                     <div class="only-post-title-holder">
                         <h2 class="entry-title excerpt">
-                            <a href="single.html">
-                                Gathered by gravity bits of moving fluff Flatland venture hearts of the stars Hypatia birth cosmic ocean! Flatland are creatures of the cosmos Orion's sword two ghostly white figures
+                            <a th:href="@{/posts/{id}(id=${posts[1].id})}" th:text="${{posts.last.mainView}}">
+
                             </a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a href="#">Handmade</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts[1].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -111,18 +111,20 @@
                 </article>
 
 
-                <article id="post-3" class="relative blog-item-holder">
+                <article th:if="${posts.size() >= 3}" id="post-3" class="relative blog-item-holder">
                     <div class="post-thumb thumb-image two_third_thumb left">
                         <img src="images/space_galaxy_astronomical_universe_helix_4k_hd_space.jpg" alt="">
                     </div>
                     <div class="post-title-holder one_third_title right">
                         <h2 class="entry-title">
-                            <a href="single.html">What was most significant about the office chairs</a>
+                            <a th:href="@{/posts/{id}(id=${posts[2].id})}" th:text="${{posts.last.mainView}}">
+
+                            </a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a href="#">Interior</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts[2].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -134,20 +136,20 @@
                 </article>
 
 
-                <article id="post-4" class="relative blog-item-holder">
+                <article th:if="${posts.size() >= 4}" id="post-4" class="relative blog-item-holder">
                     <div class="post-thumb thumb-image two_third_thumb right">
                         <img src="images/katt_home_image03.jpg" alt="">
                     </div>
                     <div class="post-title-holder one_third_title left">
                         <h2 class="entry-title">
-                            <a href="single.html">
-                                The sky is the limit only for those who aren’t afraid to fly
+                            <a th:href="@{/posts/{id}(id=${posts[3].id})}" th:text="${{posts.last.mainView}}">
+
                             </a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a href="#">Packaging</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts[3].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -159,20 +161,19 @@
                 </article>
 
 
-                <article id="post-5" class="relative blog-item-holder">
+                <article th:if="${posts.size() >= 5}" id="post-5" class="relative blog-item-holder">
                     <div class="post-thumb thumb-image one_third_thumb left">
                         <img src="images/katt_home_image04.jpg" alt="">
                     </div>
                     <div class="post-title-holder two_third_title right">
                         <h2 class="entry-title">
-                            <a href="single.html">
-                                To go places and do things that have never been done before, that’s what living is all about
+                            <a th:href="@{/posts/{id}(id=${posts[4].id})}" th:text="${{posts.last.mainView}}">
                             </a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a href="#">Handmade</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts[4].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -184,17 +185,17 @@
                 </article>
 
 
-                <article id="post-6" class="relative blog-item-holder">
+                <article th:if="${posts.size() >= 6}" id="post-6" class="relative blog-item-holder">
                     <div class="only-post-title-holder">
                         <h2 class="entry-title excerpt">
-                            <a href="single.html">
-                                It suddenly struck me that that tiny pea, pretty and blue, was the Earth. I put up my thumb and shut one eye, and my thumb blotted out the planet Earth. I didn't feel like a giant. I felt very, very small.
+                            <a th:href="@{/posts/{id}(id=${posts[5].id})}" th:text="${{posts.last.mainView}}">
+
                             </a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a href="#">Handmade</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts[5].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -206,18 +207,20 @@
                 </article>
 
 
-                <article id="post-7" class="relative blog-item-holder">
+                <article th:if="${posts.size() >= 7}" id="post-7" class="relative blog-item-holder">
                     <div class="post-thumb thumb-image two_third_thumb right">
                         <img src="images/katt_home_image05.jpg" alt="">
                     </div>
                     <div class="post-title-holder one_third_title left">
                         <h2 class="entry-title" style="margin-top: 305px;">
-                            <a href="single.html">I believe every human has a finite number of heartbeats</a>
+                            <a th:href="@{/posts/{id}(id=${posts[6].id})}" th:text="${{posts.last.mainView}}">
+
+                            </a>
                         </h2>
                         <div class="cat-links">
                             <ul>
                                 <li>
-                                    <a href="#">Lifestyle</a>
+                                    <a th:text="${{posts.last.category.name}}" th:href="@{/posts/{id}(id=${posts[6].id})}">Design</a>
                                 </li>
                             </ul>
                         </div>
@@ -230,7 +233,7 @@
 
             </div>
             <div class="clear"></div>
-            <div class="block center-relative center-text">
+            <div th:if="${posts.size() >= 8}" class="block center-relative center-text">
                 <a class="more-posts">Load more articles</a>
             </div>
             <div class="clear"></div>

@@ -2,7 +2,9 @@ package com.arthur.blog_backend.domain.posts
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.time.LocalDateTime
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Document(collection = "posts")
 data class Post(
@@ -15,8 +17,9 @@ data class Post(
     val tags: List<Tag> = listOf(),
     val category: Category?,
     val imgUrl: String?,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val author: String?
+    val createdAt: String = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MMMM uuuu",Locale.of("pt"))),
+    val author: String?,
+    val minsOfRead: Int?
 )
 
 data class Comment(val content: String)

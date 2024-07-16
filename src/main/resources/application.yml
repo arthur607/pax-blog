@@ -1,8 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/my_blog
-
-  threads:
-    virtual:
-      enabled: true
+      uri: ${MONGO_URI}
