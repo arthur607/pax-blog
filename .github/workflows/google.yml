@@ -92,9 +92,8 @@ jobs:
         id: deploy
         env:
           DB_URL: ${{ secrets.DB_URL }}
-        run: |
-          echo ${{ secrets.GCP_JSON_KEY }} > gcp-key.json
-          gcloud auth activate-service-account --key-file=gcp-key.json
+        run: |-
+          gcloud auth activate-service-account --key-file=${{ secrets.GCP_JSON_KEY }}.json
           gcloud run deploy paxblog \
           --image $REPOSITORY/$IMAGE:$GITHUB_SHA \
           --platform managed \
