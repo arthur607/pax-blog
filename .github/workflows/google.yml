@@ -36,6 +36,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Get JAR filename
+        id: jar-name
+        run: echo "::set-output name=jar_name::$(ls target/*.jar | head -n 1)"
+
       # Configure Workload Identity Federation and generate an access token.
 
       # Alternative option - authentication via credentials json
@@ -47,9 +68,14 @@ jobs:
 
       # Build the Docker image
       - name: Build
-        run: |-
+        run: |
+          gcloud auth configure-docker \
+          southamerica-east1-docker.pkg.dev
+          JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
           docker build \
             --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+            --build-arg JAR_FILE=$JAR_FILE \
+            --build-arg MONGO_URI=${{ secrets.DB_URL }} \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" \
             .
