@@ -36,6 +36,10 @@ jobs:
       - name: Run tests
         run: mvn test
 
+      - name: Get JAR filename
+        id: jar-name
+        run: echo "::set-output name=jar_name::$(ls target/*.jar | head -n 1)"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -50,19 +54,21 @@ jobs:
         env:
           MONGO_URI: ${{ secrets.DB_URL }}
         run: |
-          docker build --build-arg MONGO_URI=${{ secrets.DB_URL }} -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/blog-backend-0.0.1-SNAPSHOT.jar:${{ github.sha }} .
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/blog-backend-0.0.1-SNAPSHOT.jar:${{ github.sha }}
+          JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
+          docker build --build-arg JAR_FILE=$JAR_FILE --build-arg MONGO_URI=${{ secrets.DB_URL }} -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-spring-app:${{ github.sha }} .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-spring-app:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         id: deploy
         env:
           MONGO_URI: ${{ secrets.DB_URL }}
         run: |
-          gcloud auth activate-service-account --key-file=${{ secrets.GCP_JSON_KEY }}
-          gcloud run deploy blog-backend-0.0.1-SNAPSHOT.jar \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/blog-backend-0.0.1-SNAPSHOT.jar:${{ github.sha }} \
+          echo ${{ secrets.GCP_JSON_KEY }} > gcp-key.json
+          gcloud auth activate-service-account --key-file=gcp-key.json
+          gcloud run deploy my-spring-app \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-spring-app:${{ github.sha }} \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
-            --set-env-vars "JAVA_OPTS=-Xms512m -Xmx1024m -XX:+UseG1GC" \
+            --set-env-vars "JAVA_OPTS=-Xms512m -Xmx1524m -XX:+UseG1GC" \
             --set-env-vars "MONGO_URI=${{ secrets.DB_URL }}"
