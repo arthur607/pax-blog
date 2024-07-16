@@ -54,6 +54,8 @@ jobs:
         env:
           MONGO_URI: ${{ secrets.DB_URL }}
         run: |
+          gcloud auth configure-docker \
+          southamerica-east1-docker.pkg.dev
           JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
           docker build --build-arg JAR_FILE=$JAR_FILE --build-arg MONGO_URI=${{ secrets.DB_URL }} -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-spring-app:${{ github.sha }} .
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-spring-app:${{ github.sha }}
