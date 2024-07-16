@@ -21,6 +21,7 @@ env:
   GAR_LOCATION: southamerica-east1 # TODO: update region of the Artifact Registry
   REPOSITORY: southamerica-east1-docker.pkg.dev/pax-blog/pax-repository # TODO: update to Artifact Registry docker repository
   IMAGE: pax-image
+  RUN_SERVICE: pax-service
 
 jobs:
   setup-build-publish-deploy:
@@ -85,6 +86,21 @@ jobs:
           gcloud auth configure-docker southamerica-east1-docker.pkg.dev 
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://southamerica-east1-docker.pkg.dev
           docker push "$REPOSITORY/$IMAGE:$GITHUB_SHA"
+
+      # Deploy image on Cloud Run
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: $RUN_SERVICE
+          region: $GAR_LOCATION
+          # NOTE: If required, update to the appropriate source folder
+          source: ./
+
+      # If required, use the Cloud Run url output in later steps
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
+
       # Set up kustomize
       - name: Set up Kustomize
         run: |-
