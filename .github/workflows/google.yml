@@ -94,7 +94,7 @@ jobs:
         with:
           service: 'paxblog'
           region: southamerica-east1
-          image: southamerica-east1-docker.pkg.dev/pax-blog/pax-repository/pax-image:$GITHUB_SHA
+          image: southamerica-east1-docker.pkg.dev/pax-blog/pax-repository/pax-image:${{ github.sha }}
 
       # Set up kustomize
       - name: Set up Kustomize
