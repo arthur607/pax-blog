@@ -64,11 +64,11 @@ jobs:
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://southamerica-east1-docker.pkg.dev
           JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
           docker build \
-            --tag "$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+            --tag $REPOSITORY/$IMAGE:$GITHUB_SHA \
             --build-arg JAR_FILE=$JAR_FILE \
-            --build-arg DB_URL="${{ secrets.DB_URL }}" \
-            --build-arg GITHUB_SHA="$GITHUB_SHA" \
-            --build-arg GITHUB_REF="$GITHUB_REF" --no-cache \
+            --build-arg DB_URL=${{ secrets.DB_URL }} \
+            --build-arg GITHUB_SHA=$GITHUB_SHA \
+            --build-arg GITHUB_REF=$GITHUB_REF --no-cache \
             .
 
       # Push the Docker image to Google Artifact Registry
@@ -83,7 +83,7 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: '${{ env.RUN_SERVICE }}'
+          service: ${{ env.RUN_SERVICE }}
           region: ${{ env.GAR_LOCATION }}
           image: $REPOSITORY/$IMAGE:${{ github.sha }}
           env_vars: |
