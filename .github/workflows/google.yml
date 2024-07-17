@@ -85,7 +85,7 @@ jobs:
         with:
           service: ${{ env.RUN_SERVICE }}
           region: ${{ env.GAR_LOCATION }}
-          image: $REPOSITORY/$IMAGE:${{ github.sha }}
+          image: ${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.sha }}
           env_vars: |
             DB_URL=${{ secrets.DB_URL }}
             JAVA_OPTS=-Xms512m -Xmx1024m -XX:+UseG1GC
