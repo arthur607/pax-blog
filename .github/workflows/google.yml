@@ -65,7 +65,7 @@ jobs:
           JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
           docker buildx build \
             --tag "$REPOSITORY/$IMAGE:${{ github.sha }}" \
-            --build-arg JAR_FILE=$JAR_FILE \
+            --build-arg DB_URL=$JAR_FILE \
             --build-arg DB_URL="${{ secrets.DB_URL }}" \
             --build-arg GITHUB_SHA="${{ github.sha }}" \
             --build-arg GITHUB_REF="${{ github.ref }}" --push --no-cache .
