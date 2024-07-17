@@ -25,6 +25,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
@@ -60,12 +63,12 @@ jobs:
           gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev 
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
           JAR_FILE=$(basename ${{ steps.jar-name.outputs.jar_name }})
-          docker build \
+          docker buildx build \
             --tag "$REPOSITORY/$IMAGE:${{ github.sha }}" \
             --build-arg JAR_FILE=$JAR_FILE \
             --build-arg DB_URL=${{ secrets.DB_URL }} \
             --build-arg GITHUB_SHA="${{ github.sha }}" \
-            --build-arg GITHUB_REF="${{ github.ref }}" .
+            --build-arg GITHUB_REF="${{ github.ref }}" --push .
 
       # Push the Docker image to Google Artifact Registry
       - name: Publish
