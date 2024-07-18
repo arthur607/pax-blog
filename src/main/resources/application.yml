@@ -1,6 +1,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://arthur150ml:1qa2ws3ed4rf@pax-cluster.fpjoozr.mongodb.net/pax-blog?retryWrites=true&w=majority&appName=pax-cluster
-
+      uri: ${MONGO_URI}
 
